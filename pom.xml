@@ -42,6 +42,10 @@
 	  <id>confuser-repo</id>
 	  <url>http://ci.frostcast.net/plugin/repository/everything</url>
 	</repository>
+    <repository>
+        <id>remoteentities-repo</id>
+        <url>http://repo.infinityblade.de/remoteentities/releases</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -70,5 +74,10 @@
 	  <artifactId>BarAPI</artifactId>
 	  <version>3.0</version>
 	</dependency>
+	<dependency>
+        <groupId>de.kumpelblase2</groupId>
+        <artifactId>remoteentities</artifactId>
+        <version>1.7</version>
+    </dependency>
   </dependencies>
 </project>
