@@ -54,7 +54,8 @@ public class Lobby implements Listener
 		
 		for(final Player p : Bukkit.getOnlinePlayers())
 		{
-			countdown.put(p, new BukkitRunnable(){
+			countdown.put(p, new BukkitRunnable()
+			{
 
 				@Override
 				public void run() 
@@ -69,6 +70,7 @@ public class Lobby implements Listener
 						if(next_game == 1)
 						{
 							//PorkChopRace.start();
+							GameState.setState(GameState.GAME_1);
 						}
 						
 						cancel();
