@@ -24,6 +24,7 @@
 /bin
 /bin
 /bin
+<<<<<<< HEAD
 /bin
 /bin
 /bin
@@ -41,3 +42,6 @@
 /bin
 /bin
 /bin
+=======
+/target
+>>>>>>> FETCH_HEAD
