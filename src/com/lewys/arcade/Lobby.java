@@ -35,7 +35,7 @@ public class Lobby implements Listener
 		
 		GameName = Game_Name;
 		
-		Task1 = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPluginInstance(), new Runnable()
+		Task1 = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable()
 		{
 
 			@Override
@@ -79,7 +79,7 @@ public class Lobby implements Listener
 				
 			});
 			
-			Bukkit.getScheduler().runTaskTimer(Main.getPluginInstance(), countdown.get(p), 0, 20);
+			Bukkit.getScheduler().runTaskTimer(Main.instance, countdown.get(p), 0, 20);
 		}	
 	}
 	
@@ -88,7 +88,8 @@ public class Lobby implements Listener
 	{
 		if(GameState.isState(GameState.IN_LOBBY))
 		{
-			countdown.put(e.getPlayer(), new BukkitRunnable(){
+			countdown.put(e.getPlayer(), new BukkitRunnable()
+			{
 
 				@Override
 				public void run() 
@@ -98,7 +99,7 @@ public class Lobby implements Listener
 				}
 			});
 			
-			Bukkit.getScheduler().runTaskTimer(Main.getPluginInstance(), countdown.get(e.getPlayer()), 0, 20);
+			Bukkit.getScheduler().runTaskTimer(Main.instance, countdown.get(e.getPlayer()), 0, 20);
 		}
 	}
 }
