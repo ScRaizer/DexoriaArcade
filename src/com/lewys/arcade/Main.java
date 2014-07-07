@@ -15,7 +15,8 @@ public class Main extends JavaPlugin implements Listener
 		Bukkit.getPluginManager().registerEvents(this, this);
 	}
 	
-	public static Main getPluginInstance(){
+	public static Main getPluginInstance()
+	{
 		return instance;
 	}
 }
