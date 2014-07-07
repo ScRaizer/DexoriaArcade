@@ -13,6 +13,7 @@ public class Main extends JavaPlugin implements Listener
 		instance = this;
 		
 		Bukkit.getPluginManager().registerEvents(this, this);
+		Bukkit.getPluginManager().registerEvents(new Lobby(), this);
 	}
 	
 	public static Main getPluginInstance()
