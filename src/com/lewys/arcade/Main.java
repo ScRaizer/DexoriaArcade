@@ -29,13 +29,11 @@ public class Main extends JavaPlugin implements Listener
 	
 	public void onEnable()
 	{
+		instance = this;
 		GameState.setState(GameState.IN_LOBBY);
 		Lobby.doLobby(1, "PorkChopRace");
 		
-		instance = this;
-		
-		reg(new Lobby());
-		reg(new PorkChopRace());
+		reg(new PorkChopRace(), new Lobby());
 	}
 	public void onDisable()
 	{
