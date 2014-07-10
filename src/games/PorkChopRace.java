@@ -12,6 +12,7 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -39,26 +40,35 @@ public class PorkChopRace implements Listener
 	static HashMap<Player, Integer> Amount_killed = new HashMap<Player, Integer>();
 	
 	static boolean Event = false;
+	static boolean slowness = false;
 	static boolean canMove = false;
 	static int fireworks;
 	
 	public static void doPorkChopRace()
 	{	
+		canMove = false;
+		slowness = false;
+		
 		GameState.setState(GameState.GAME_1);
 		
 		Event = true;
 		
-		Location loc = new Location(Bukkit.getWorld("world"), -120.5, 7.5,1410.5);
+		Location loc = new Location(Bukkit.getWorld("world"), -120.5, 7, -1410.5);
 		
 		for(Player p : Bukkit.getOnlinePlayers())
 		{
+			
+			BarAPI.removeBar(p);
+			
 			p.teleport(loc);
 			p.getInventory().setItem(0, new ItemStack(Material.IRON_SWORD));
 			ParticleEffect.FLAME.display(loc, 0.3f, 1f, 0.3f, 0.1f, 20);
 			
-			loc.setX(loc.getX() -2);
+			loc.setZ(loc.getZ() -2);
 			
 			p.playSound(loc, Sound.FALL_BIG, 2.0f, 2.0f);
+			
+			Amount_killed.put(p, 0);
 		}	
 		
 		Bukkit.broadcastMessage(ChatColor.GREEN + "----" + ChatColor.WHITE + "ProkChopRace" + ChatColor.GREEN + "----");
@@ -73,6 +83,7 @@ public class PorkChopRace implements Listener
 			public void run() {
 				spawnPigs();
 				canMove = true;
+				slowness = true;
 				Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "GO");
 				
 				for(Player p : Bukkit.getOnlinePlayers())
@@ -89,7 +100,7 @@ public class PorkChopRace implements Listener
 	 * */
 	public static void spawnPigs()
 	{
-		for(int i = 0; i <30; i++)
+		for(int i = 0; i < 30; i++)
 		{
 			int x = (int) (Math.random() * (-20.5 - -48.5 + 1) + -48.5);
 			double y = -6.5;
@@ -100,9 +111,10 @@ public class PorkChopRace implements Listener
 			Entity ent = Bukkit.getWorld("world").spawnEntity(loc, EntityType.PIG);
 			Pig p = (Pig) ent;
 			
-			p.setMaxHealth(30d);
-			p.setHealth(30d);
+			p.setMaxHealth(30);
+			p.setHealth(30);
 			pigs.add(ent);
+
 		}
 	}
 
@@ -118,6 +130,8 @@ public class PorkChopRace implements Listener
 		{
 			if(canMove == false)
 			{
+				if(e.getPlayer().getLocation().subtract(0,1,0).getBlock().getType().equals(Material.WOOD))
+					return;
 				e.setCancelled(true);
 			}
 		}
@@ -135,6 +149,21 @@ public class PorkChopRace implements Listener
 					e.setDamage(10d);
 					Pig ent = (Pig) e.getEntity();
 					ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,120, 8));
+				}
+			}
+			
+			if(e.getEntity() instanceof Player)
+			{
+				if(e.getDamager() instanceof Player)
+				{
+					if(slowness == true)
+					{
+					
+					Player p = (Player) e.getEntity();
+					p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW ,20, 1));
+					}
+					
+					e.setCancelled(true);
 				}
 			}
 		}
@@ -155,12 +184,12 @@ public class PorkChopRace implements Listener
 			
 			if(Amount_killed.get(p) >= 3)
 			{
-				p.sendMessage(ChatColor.BLUE + "PorkChopRace> " + ChatColor.WHITE + "You have collected enough bacon! Now return it to camp!");
+				p.sendMessage(ChatColor.BLUE + "PorkChopRace > " + ChatColor.WHITE + "You have collected enough bacon! Now return it to camp!");
 			}
 			else
 			{
 				int needed =  3 - Amount_killed.get(p);
-				p.sendMessage(ChatColor.BLUE + "PorkChopRace> " + ChatColor.WHITE + "You need " + ChatColor.GOLD + needed + ChatColor.WHITE + " More slices!");
+				p.sendMessage(ChatColor.BLUE + "PorkChopRace > " + ChatColor.WHITE + "You need " + ChatColor.GOLD + needed + ChatColor.WHITE + " More slice(s)!");
 				}
 			}
 		}
@@ -169,7 +198,7 @@ public class PorkChopRace implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		if(Event = true)
+		if(Event == true)
 		{
 		
 		if(Amount_killed.get(e.getPlayer()) >= 3)
@@ -182,6 +211,7 @@ public class PorkChopRace implements Listener
 			
 			for(Player p : Bukkit.getOnlinePlayers())
 			{
+				BarAPI.removeBar(p);
 				BarAPI.setMessage(p, ChatColor.BLUE + "PorkChopRace >" + ChatColor.WHITE + " Player " + ChatColor.GOLD + e.getPlayer().getName() + ChatColor.WHITE + " Has won!", 100f);
 			}
 			
@@ -195,7 +225,7 @@ public class PorkChopRace implements Listener
 		Event = false;
 		
 		 fireworks = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable() {
-			   int times = 32;
+			   int times = 62;
 			   
 	      	   public void run() {
 	      		   if(times >= 1){
@@ -225,6 +255,11 @@ public class PorkChopRace implements Listener
 		for(Entity ent : pigs)
 		{
 			ent.remove();
+		}
+		
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			BarAPI.removeBar(p);
 		}
 		
 		pigs.clear();

@@ -36,9 +36,13 @@ public class Lobby implements Listener
 	
 	public static void doLobby(final int next_game,final String Game_Name)
 	{
+		timer = 20;
+		removebar = false;
 		
 		for(Player p : Bukkit.getOnlinePlayers())
 		{
+			BarAPI.removeBar(p);
+			
 			p.getInventory().clear();
 			p.getInventory().setHelmet(null);
 			p.getInventory().setChestplate(null);
@@ -49,7 +53,7 @@ public class Lobby implements Listener
 		}
 		
 		GameName = Game_Name;
-		Bukkit.broadcastMessage(ChatColor.BLUE + "Arcade >" + ChatColor.WHITE + "The next game is:" + ChatColor.GOLD + Game_Name);
+		Bukkit.broadcastMessage(ChatColor.BLUE + "Arcade > " + ChatColor.WHITE + "The next game is: " + ChatColor.GOLD + Game_Name);
 		
 		Task1 = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable()
 		{
@@ -106,10 +110,11 @@ public class Lobby implements Listener
 					if(removebar == true)
 					{
 						BarAPI.removeBar(p);
+						countdown.remove(p);
 						cancel();
 					}
 					
-					BarAPI.setMessage(p, ChatColor.BLACK + "" + ChatColor.BOLD +  Game_Name 
+					BarAPI.setMessage(p, ChatColor.BLUE + "" + ChatColor.BOLD +  Game_Name 
 							+ ChatColor.WHITE + " Starting in " + timer , 100f);	
 				}
 				
@@ -130,7 +135,7 @@ public class Lobby implements Listener
 				@Override
 				public void run() 
 				{
-					BarAPI.setMessage(e.getPlayer(), ChatColor.BLACK + "" + ChatColor.BOLD +  GameName 
+					BarAPI.setMessage(e.getPlayer(), ChatColor.BLUE + "" + ChatColor.BOLD +  GameName 
 							+ ChatColor.WHITE + " Starting in " + timer , 100);
 				}
 			});
