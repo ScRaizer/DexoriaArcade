@@ -1,11 +1,14 @@
 package com.lewys.arcade;
 
+import games.PorkChopRace;
+
 import java.util.HashMap;
 
 import me.confuser.barapi.BarAPI;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,17 +26,30 @@ public class Lobby implements Listener
 	
 	private static String GameName;
 	
-	/* Next Games int IDs  
+	static /* Next Games int IDs  
 	 * 1 = PorkChopRace
 	 * 2 = Wolfs
-	 * 3 = null
-	 * 4 = null
+	 * 3 = Explosive Spleef
+	 * 4 = Color Tag
 	 * */ 
+	boolean removebar = false;
 	
 	public static void doLobby(final int next_game,final String Game_Name)
 	{
 		
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			p.getInventory().clear();
+			p.getInventory().setHelmet(null);
+			p.getInventory().setChestplate(null);
+			p.getInventory().setLeggings(null);
+			p.getInventory().setBoots(null);
+			
+			p.teleport(new Location(Bukkit.getWorld("world"), -201, 5.5, -1345));
+		}
+		
 		GameName = Game_Name;
+		Bukkit.broadcastMessage(ChatColor.BLUE + "Arcade >" + ChatColor.WHITE + "The next game is:" + ChatColor.GOLD + Game_Name);
 		
 		Task1 = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable()
 		{
@@ -43,8 +59,35 @@ public class Lobby implements Listener
 			{
 				if(timer == 0)
 				{
+				
+				if(Bukkit.getOnlinePlayers().length < 5)
+				{
+					
+					Bukkit.broadcastMessage(ChatColor.GRAY + "Not enough Players! Reseting the timer");
+					
+					timer = 20;
+					return;
+				}
+				else
+				{
+					
+				removebar = true;	
+					
 				timer = 20;
+				
+				for(Player p :Bukkit.getOnlinePlayers())
+				{
+					BarAPI.removeBar(p);
+				}
+				
+				if(next_game == 1)
+				{
+					PorkChopRace.doPorkChopRace();
+				}
+				
 				Bukkit.getScheduler().cancelTask(Task1);
+				
+					}
 				}
 				
 				timer --;
@@ -60,21 +103,14 @@ public class Lobby implements Listener
 				@Override
 				public void run() 
 				{
-					BarAPI.setMessage(p, ChatColor.BLACK + "" + ChatColor.BOLD +  Game_Name 
-							+ ChatColor.WHITE + " Starting in " + timer , 100);
-					
-					if(timer == 0)
+					if(removebar == true)
 					{
-						countdown.remove(p);
-						
-						if(next_game == 1)
-						{
-							//PorkChopRace.start();
-							GameState.setState(GameState.GAME_1);
-						}
-						
+						BarAPI.removeBar(p);
 						cancel();
 					}
+					
+					BarAPI.setMessage(p, ChatColor.BLACK + "" + ChatColor.BOLD +  Game_Name 
+							+ ChatColor.WHITE + " Starting in " + timer , 100f);	
 				}
 				
 			});
