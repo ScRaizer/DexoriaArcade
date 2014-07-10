@@ -12,7 +12,6 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -39,7 +38,7 @@ public class PorkChopRace implements Listener
 	static List<Entity> pigs = new ArrayList<Entity>();
 	static HashMap<Player, Integer> Amount_killed = new HashMap<Player, Integer>();
 	
-	static boolean Event = false;
+	static boolean event = false;
 	static boolean slowness = false;
 	static boolean canMove = false;
 	static int fireworks;
@@ -51,7 +50,7 @@ public class PorkChopRace implements Listener
 		
 		GameState.setState(GameState.GAME_1);
 		
-		Event = true;
+		event = true;
 		
 		Location loc = new Location(Bukkit.getWorld("world"), -120.5, 7, -1410.5);
 		
@@ -122,25 +121,11 @@ public class PorkChopRace implements Listener
 	/* 
 	 * Events
 	 * */
-	
-	@EventHandler
-	public void PlayerMove(PlayerMoveEvent e)
-	{
-		if(Event == true)
-		{
-			if(canMove == false)
-			{
-				if(e.getPlayer().getLocation().subtract(0,1,0).getBlock().getType().equals(Material.WOOD))
-					return;
-				e.setCancelled(true);
-			}
-		}
-	}
-	
+		
 	@EventHandler
 	public void onPigHurt(EntityDamageByEntityEvent e)
 	{
-		if(Event == true)
+		if(event)
 		{
 			if(e.getEntity() instanceof Pig)
 			{
@@ -172,7 +157,7 @@ public class PorkChopRace implements Listener
 	@EventHandler
 	public void onPigKill(EntityDeathEvent e)
 	{
-		if(Event == true)
+		if(event)
 		{
 		
 		if(e.getEntity() instanceof Pig)
@@ -198,8 +183,18 @@ public class PorkChopRace implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		if(Event == true)
+		if(event)
 		{
+			if(!canMove){
+				Location fromLoc = e.getFrom();
+				Location toLoc = e.getTo();
+				
+				if(fromLoc.getX() != toLoc.getX() || fromLoc.getZ() != toLoc.getZ()){
+					if(e.getPlayer().getLocation().subtract(0,1,0).getBlock().getType() != Material.WOOD) return;
+					e.setCancelled(true);
+					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_STICKS, 1.0F, 1.0F);
+				}
+			}
 		
 		if(Amount_killed.get(e.getPlayer()) >= 3)
 		{
@@ -222,7 +217,7 @@ public class PorkChopRace implements Listener
 	
 	public static void doCelebration()
 	{
-		Event = false;
+		event = false;
 		
 		 fireworks = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable() {
 			   int times = 62;

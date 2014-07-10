@@ -1,3 +1,6 @@
-name: Arcade
-version: 1
+name: Dexcade
+version: a1.0
 main: com.lewys.arcade.Main
+description: Dexoria Network's Arcade plugin.
+authors: [lewys_ryan, Incomprehendable]
+
