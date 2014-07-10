@@ -63,7 +63,7 @@ public class Lobby implements Listener
 				if(Bukkit.getOnlinePlayers().length < 5)
 				{
 					
-					Bukkit.broadcastMessage(ChatColor.GRAY + "Not enough Players! Reseting the timer");
+					Bukkit.broadcastMessage(ChatColor.GRAY + "Not enough players! Reseting the timer.");
 					
 					timer = 20;
 					return;
