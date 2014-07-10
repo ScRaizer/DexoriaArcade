@@ -1,6 +1,8 @@
 package com.lewys.arcade;
 
-import org.bukkit.Bukkit;
+import games.PorkChopRace;
+
+
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,7 +18,7 @@ import com.sk89q.minecraft.util.commands.CommandsManager;
 import com.sk89q.minecraft.util.commands.MissingNestedCommandException;
 import com.sk89q.minecraft.util.commands.WrappedCommandException;
 
-@SuppressWarnings("unused")
+
 public class Main extends JavaPlugin implements Listener
 
 // Steven is super muscular
@@ -27,9 +29,13 @@ public class Main extends JavaPlugin implements Listener
 	
 	public void onEnable()
 	{
+		GameState.setState(GameState.IN_LOBBY);
+		Lobby.doLobby(1, "PorkChopRace");
+		
 		instance = this;
 		
 		reg(new Lobby());
+		reg(new PorkChopRace());
 	}
 	public void onDisable()
 	{
@@ -37,6 +43,7 @@ public class Main extends JavaPlugin implements Listener
 	}
 	
 	// sk89q's command framework
+		@SuppressWarnings("unused")
 		private void setupCommands() {
 			this.commands = new CommandsManager<CommandSender>() {
 				@Override
