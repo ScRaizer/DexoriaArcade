@@ -58,8 +58,6 @@ public class PorkChopRace implements Listener
 		for(Player p : Bukkit.getOnlinePlayers())
 		{
 			
-			BarAPI.removeBar(p);
-			
 			p.teleport(loc);
 			p.getInventory().setItem(0, new ItemStack(Material.IRON_SWORD));
 			ParticleEffect.FLAME.display(loc, 0.3f, 1f, 0.3f, 0.1f, 20);
@@ -142,20 +140,15 @@ public class PorkChopRace implements Listener
 	{
 		if(Event == true)
 		{
-			if(e.getEntity() instanceof Pig)
+			if((e.getEntity() instanceof Pig) && (e.getDamager() instanceof Player))
 			{
-				if(e.getDamager() instanceof Player)
-				{
 					e.setDamage(10d);
 					Pig ent = (Pig) e.getEntity();
 					ent.addPotionEffect(new PotionEffect(PotionEffectType.SPEED,120, 8));
-				}
 			}
 			
-			if(e.getEntity() instanceof Player)
+			if((e.getEntity() instanceof Player) && (e.getDamager() instanceof Player))
 			{
-				if(e.getDamager() instanceof Player)
-				{
 					if(slowness == true)
 					{
 					
@@ -164,7 +157,6 @@ public class PorkChopRace implements Listener
 					}
 					
 					e.setCancelled(true);
-				}
 			}
 		}
 	}
@@ -174,9 +166,13 @@ public class PorkChopRace implements Listener
 	{
 		if(Event == true)
 		{
-		
+
 		if(e.getEntity() instanceof Pig)
 		{
+			
+			e.getDrops().clear();
+			e.setDroppedExp(0);
+			
 			Player p = e.getEntity().getKiller();
 			Amount_killed.put(p, Amount_killed.get(p) +1);
 			
@@ -211,7 +207,6 @@ public class PorkChopRace implements Listener
 			
 			for(Player p : Bukkit.getOnlinePlayers())
 			{
-				BarAPI.removeBar(p);
 				BarAPI.setMessage(p, ChatColor.BLUE + "PorkChopRace >" + ChatColor.WHITE + " Player " + ChatColor.GOLD + e.getPlayer().getName() + ChatColor.WHITE + " Has won!", 100f);
 			}
 			
@@ -255,11 +250,6 @@ public class PorkChopRace implements Listener
 		for(Entity ent : pigs)
 		{
 			ent.remove();
-		}
-		
-		for(Player p : Bukkit.getOnlinePlayers())
-		{
-			BarAPI.removeBar(p);
 		}
 		
 		pigs.clear();
