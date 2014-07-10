@@ -1,10 +1,20 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>DexoriaArcade</groupId>
   <artifactId>DexoriaArcade</artifactId>
   <version>a1.0</version>
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>resources</directory>
+        <includes>
+          <include>plugin.yml</include>
+          <include>LGPL v3.txt</include>
+        </includes>
+      </resource>
+    </resources>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -15,7 +25,6 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
         <version>2.3</version>
         <executions>
@@ -26,12 +35,12 @@
             </goals>
             <configuration>
               <transformers>
-                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                <transformer>
                   <mainClass>com.group.id.Launcher1</mainClass>
                 </transformer>
               </transformers>
               <relocations>
-                 <relocation>
+                <relocation>
                   <pattern>mkremins.fanciful</pattern>
                   <shadedPattern>shaded.mkremins.fanciful</shadedPattern>
                 </relocation>
@@ -45,93 +54,72 @@
         </executions>
       </plugin>
     </plugins>
-        <resources>
-      <resource>
-        <directory>resources</directory>
-        <includes>
-          <include>plugin.yml</include>
-          <include>LGPL v3.txt</include>
-        </includes>
-      </resource>
-    </resources>
   </build>
   <repositories>
-  	<repository>
-  	  <id>bukkit-repo</id>
-  	  <url>http://repo.bukkit.org/content/groups/public/</url>
-	</repository>
-	<repository>
+    <repository>
+      <id>bukkit-repo</id>
+      <url>http://repo.bukkit.org/content/groups/public/</url>
+    </repository>
+    <repository>
       <id>comphenix-rep</id>
       <name>Comphenix Repository</name>
       <url>http://repo.comphenix.net/content/groups/public</url>
     </repository>
     <repository>
-      <id>fanciful-mvn-repo</id>
-  	  <url>https://raw.github.com/mkremins/fanciful/mvn-repo/</url>
       <snapshots>
-    	<enabled>true</enabled>
-    	<updatePolicy>always</updatePolicy>
-  	  </snapshots>
-	</repository>
-	<repository>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+      <id>fanciful-mvn-repo</id>
+      <url>https://raw.github.com/mkremins/fanciful/mvn-repo/</url>
+    </repository>
+    <repository>
       <id>repo.oc.tc</id>
       <url>https://repo.oc.tc/content/groups/public/</url>
     </repository>
     <repository>
-	  <id>confuser-repo</id>
-	  <url>http://ci.frostcast.net/plugin/repository/everything</url>
-	</repository>
+      <id>confuser-repo</id>
+      <url>http://ci.frostcast.net/plugin/repository/everything</url>
+    </repository>
     <repository>
-        <id>remoteentities-repo</id>
-        <url>http://repo.infinityblade.de/remoteentities/releases</url>
+      <id>remoteentities-repo</id>
+      <url>http://repo.infinityblade.de/remoteentities/releases</url>
     </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>org.bukkit</groupId>
-       <artifactId>bukkit</artifactId>
-       <version>1.7.9-R0.2</version>
-       <scope>provided</scope>
-	</dependency>
-	<dependency>
+      <artifactId>bukkit</artifactId>
+      <version>1.7.9-R0.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>com.comphenix.protocol</groupId>
       <artifactId>ProtocolLib</artifactId>
       <version>3.4.0</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>mkremins</groupId>
-      <artifactId>fanciful</artifactId>
-      <version>0.1.5</version>
-      <scope>compile</scope>
       <exclusions>
         <exclusion>
-          <groupId>org.bukkit</groupId>
-          <artifactId>bukkit</artifactId>
+          <artifactId>cglib-nodep</artifactId>
+          <groupId>cglib</groupId>
         </exclusion>
         <exclusion>
-          <groupId>org.bukkit</groupId>
-          <artifactId>craftbukkit</artifactId>
+          <artifactId>BukkitExecutors</artifactId>
+          <groupId>com.comphenix.executors</groupId>
         </exclusion>
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.sk89q</groupId>
-      <artifactId>command-framework-bukkit</artifactId>
-      <version>0.5-SNAPSHOT</version>
-      <scope>compile</scope>
+      <groupId>me.confuser</groupId>
+      <artifactId>BarAPI</artifactId>
+      <version>3.0</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
-	  <groupId>me.confuser</groupId>
-	  <artifactId>BarAPI</artifactId>
-	  <version>3.0</version>
-	  <scope>provided</scope>
-	</dependency>
-	<dependency>
-        <groupId>de.kumpelblase2</groupId>
-        <artifactId>remoteentities</artifactId>
-        <version>1.7</version>
-        <scope>provided</scope>
+      <groupId>de.kumpelblase2</groupId>
+      <artifactId>remoteentities</artifactId>
+      <version>1.7</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
 </project>
+
