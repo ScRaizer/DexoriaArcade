@@ -1,7 +1,9 @@
 package com.lewys.arcade.util.game;
 
 public enum GameType {
-	FREE_FOR_ALL, SOLO, TEAM;
+	FREE_FOR_ALL,
+	SOLO,
+	TEAM;
 	
 	private static GameType _type;
 	
