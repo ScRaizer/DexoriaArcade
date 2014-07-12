@@ -14,6 +14,11 @@ public enum TeamColor {
 	WHITE(ChatColor.WHITE, DyeColor.WHITE),
 	GRAY(ChatColor.GRAY, DyeColor.GRAY);
 	
+	/*
+	 * Team colors to help manage stuff. Dye color will mainly be for kit selection (kits?) and stuff like that.
+	 * The chat color will be used for chat and killfeeds.
+	 */
+	
 	private ChatColor _color;
 	private DyeColor _dye;
 	
