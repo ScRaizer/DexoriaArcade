@@ -27,6 +27,7 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import com.lewys.arcade.BarManager;
 import com.lewys.arcade.GameState;
 import com.lewys.arcade.Lobby;
 import com.lewys.arcade.Main;
@@ -186,8 +187,7 @@ public class PorkChopRace implements Listener
 				Location toLoc = e.getTo();
 				
 				if(fromLoc.getX() != toLoc.getX() || fromLoc.getZ() != toLoc.getZ()){
-					if(e.getPlayer().getLocation().subtract(0,1,0).getBlock().getType() != Material.WOOD) return;
-					e.setCancelled(true);
+					e.getPlayer().teleport(fromLoc); //No need to cancel it, just teleport them back nub.
 					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_STICKS, 1.0F, 1.0F);
 				}
 			}
@@ -202,7 +202,7 @@ public class PorkChopRace implements Listener
 			
 			for(Player p : Bukkit.getOnlinePlayers())
 			{
-				BarAPI.setMessage(p, ChatColor.BLUE + "PorkChopRace >" + ChatColor.WHITE + " Player " + ChatColor.GOLD + e.getPlayer().getName() + ChatColor.WHITE + " Has won!", 100f);
+				BarManager.setBar(p, ChatColor.BLUE + "PorkChopRace >" + ChatColor.WHITE + " Player " + ChatColor.GOLD + e.getPlayer().getName() + ChatColor.WHITE + " Has won!");
 			}
 			
 				}

@@ -40,7 +40,7 @@ public class Lobby implements Listener
 		
 		for(Player p : Bukkit.getOnlinePlayers())
 		{
-			BarAPI.removeBar(p);
+			BarManager.removeBar(p);
 			
 			p.getInventory().clear();
 			p.getInventory().setHelmet(null);
