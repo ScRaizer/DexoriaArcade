@@ -105,7 +105,7 @@ public class PorkChopRace implements Listener
 			
 			Location loc = new Location(Bukkit.getWorld("world"), x,y,z);
 			
-			Entity ent = Bukkit.getWorld("world").spawnEntity(loc, EntityType.PIG);
+			Entity ent = Bukkit.getWorld("world").spawnCreature(loc, EntityType.PIG);
 			Pig p = (Pig) ent;
 			
 			p.setMaxHealth(30);

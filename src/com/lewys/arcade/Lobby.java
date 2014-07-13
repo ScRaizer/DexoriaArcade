@@ -17,10 +17,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Lobby implements Listener
 {
-	static HashMap<Player, BukkitRunnable> countdown = new HashMap<Player, BukkitRunnable>();
-	
 	
 	private static int Task1;
+	private static int Task2;
 	
 	private static int timer = 20;
 	
@@ -81,7 +80,7 @@ public class Lobby implements Listener
 				
 				for(Player p :Bukkit.getOnlinePlayers())
 				{
-					BarAPI.removeBar(p);
+					BarManager.removeBar(p);
 				}
 				
 				if(next_game == 1)
@@ -101,46 +100,47 @@ public class Lobby implements Listener
 		
 		for(final Player p : Bukkit.getOnlinePlayers())
 		{
-			countdown.put(p, new BukkitRunnable()
-			{
+			
+		Task2 = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable()
+		{
 
-				@Override
-				public void run() 
+			@Override
+			public void run() {
+				
+				if(removebar == true)
 				{
-					if(removebar == true)
-					{
-						BarAPI.removeBar(p);
-						countdown.remove(p);
-						cancel();
-					}
-					
-					BarAPI.setMessage(p, ChatColor.BLUE + "" + ChatColor.BOLD +  Game_Name 
-							+ ChatColor.WHITE + " Starting in " + timer , 100f);	
+					BarManager.removeBar(p);
+					Bukkit.getScheduler().cancelTask(Task2);
 				}
 				
-			});
+				BarManager.setBar(p, ChatColor.BLUE + "" + ChatColor.BOLD +  Game_Name 
+						+ ChatColor.WHITE + " Starting in " + timer);	
+			}
 			
-			Bukkit.getScheduler().runTaskTimer(Main.instance, countdown.get(p), 0, 20);
-		}	
+		}, 0, 20);
 	}
+	
+}
 	
 	@EventHandler
 	public void onPlayerJoin(final PlayerJoinEvent e)
 	{
-		if(GameState.isState(GameState.IN_LOBBY))
+		Task2 = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable()
 		{
-			countdown.put(e.getPlayer(), new BukkitRunnable()
-			{
 
-				@Override
-				public void run() 
+			@Override
+			public void run() {
+				
+				if(removebar == true)
 				{
-					BarAPI.setMessage(e.getPlayer(), ChatColor.BLUE + "" + ChatColor.BOLD +  GameName 
-							+ ChatColor.WHITE + " Starting in " + timer , 100);
+					BarManager.removeBar(e.getPlayer());
+					Bukkit.getScheduler().cancelTask(Task2);
 				}
-			});
+				
+				BarManager.setBar(e.getPlayer(), ChatColor.BLUE + "" + ChatColor.BOLD +  GameName 
+						+ ChatColor.WHITE + " Starting in " + timer);	
+			}
 			
-			Bukkit.getScheduler().runTaskTimer(Main.instance, countdown.get(e.getPlayer()), 0, 20);
-		}
+		}, 0, 20);
 	}
 }
