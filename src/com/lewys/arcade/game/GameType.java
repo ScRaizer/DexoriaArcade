@@ -1,4 +1,4 @@
-package com.lewys.arcade.util.game;
+package com.lewys.arcade.game;
 
 public enum GameType {
 	FREE_FOR_ALL,

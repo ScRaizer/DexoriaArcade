@@ -1,4 +1,4 @@
-package com.lewys.arcade.util.game;
+package com.lewys.arcade.game;
 
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;

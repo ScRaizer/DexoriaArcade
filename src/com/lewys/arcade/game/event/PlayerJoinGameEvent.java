@@ -1,17 +1,17 @@
-package com.lewys.arcade.util.game.event;
+package com.lewys.arcade.game.event;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import com.lewys.arcade.util.game.Game;
+import com.lewys.arcade.game.Game;
 
-public class PlayerLeaveGameEvent extends Event {
+public class PlayerJoinGameEvent extends Event {
 	private HandlerList _handlers = new HandlerList();
 	private Player _player;
 	private Game _game;
 	
-	public PlayerLeaveGameEvent(Player p, Game g){
+	public PlayerJoinGameEvent(Player p, Game g){
 		this._player = p;
 		this._game = g;
 	}
@@ -22,7 +22,8 @@ public class PlayerLeaveGameEvent extends Event {
 	public Game getGame(){
 		return this._game;
 	}
-	public HandlerList getHandlers(){
+	public HandlerList getHandlers() {
 		return this._handlers;
 	}
+
 }
