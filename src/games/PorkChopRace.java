@@ -126,7 +126,7 @@ public class PorkChopRace implements Listener
 	@EventHandler
 	public void onPigHurt(EntityDamageByEntityEvent e)
 	{
-		if(event)
+		if(event == true)
 		{
 			if((e.getEntity() instanceof Pig) && (e.getDamager() instanceof Player))
 			{
@@ -152,7 +152,7 @@ public class PorkChopRace implements Listener
 	@EventHandler
 	public void onPigKill(EntityDeathEvent e)
 	{
-		if(event)
+		if(event == true)
 		{
 
 		if(e.getEntity() instanceof Pig)
@@ -182,7 +182,7 @@ public class PorkChopRace implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent e)
 	{
-		if(event)
+		if(event == true)
 		{
 			if(!canMove)
 			{
@@ -196,10 +196,7 @@ public class PorkChopRace implements Listener
 				}
 			}
 		
-		if(Amount_killed.get(e.getPlayer()) >= 3)
-		{
-		
-		if(e.getPlayer().getLocation().getX() < -116)
+		if(((Amount_killed.get(e.getPlayer()) >= 3)) && (e.getPlayer().getLocation().getX() < -116))
 		{
 			doCelebration();
 			Bukkit.broadcastMessage(ChatColor.BLUE + "PorkChopRace >" + ChatColor.WHITE + " Player " + ChatColor.GOLD + e.getPlayer().getName() + ChatColor.WHITE + " Has won!");
@@ -209,10 +206,9 @@ public class PorkChopRace implements Listener
 				BarManager.setBar(p, ChatColor.BLUE + "PorkChopRace >" + ChatColor.WHITE + " Player " + ChatColor.GOLD + e.getPlayer().getName() + ChatColor.WHITE + " Has won!");
 			}
 			
-				}
-			}
 		}
 	}
+}
 	
 	public static void doCelebration()
 	{
