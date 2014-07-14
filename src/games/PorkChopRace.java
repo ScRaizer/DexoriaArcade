@@ -75,10 +75,12 @@ public class PorkChopRace implements Listener
 		Bukkit.broadcastMessage(ChatColor.WHITE + "First one back with the bacon wins");
 		Bukkit.broadcastMessage(ChatColor.AQUA + "Good luck!");
 		
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable(){
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.instance, new Runnable()
+		{
 
 			@Override
-			public void run() {
+			public void run() 
+			{
 				spawnPigs();
 				canMove = true;
 				slowness = true;
@@ -106,7 +108,7 @@ public class PorkChopRace implements Listener
 			
 			Location loc = new Location(Bukkit.getWorld("world"), x,y,z);
 			
-			Entity ent = Bukkit.getWorld("world").spawnCreature(loc, EntityType.PIG);
+			Entity ent = Bukkit.getWorld("world").spawnEntity(loc, EntityType.PIG);
 			Pig p = (Pig) ent;
 			
 			p.setMaxHealth(30);
@@ -182,11 +184,13 @@ public class PorkChopRace implements Listener
 	{
 		if(event)
 		{
-			if(!canMove){
+			if(!canMove)
+			{
 				Location fromLoc = e.getFrom();
 				Location toLoc = e.getTo();
 				
-				if(fromLoc.getX() != toLoc.getX() || fromLoc.getZ() != toLoc.getZ()){
+				if(fromLoc.getX() != toLoc.getX() || fromLoc.getZ() != toLoc.getZ())
+				{
 					e.getPlayer().teleport(fromLoc); //No need to cancel it, just teleport them back nub.
 					e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.NOTE_STICKS, 1.0F, 1.0F);
 				}
@@ -214,7 +218,8 @@ public class PorkChopRace implements Listener
 	{
 		event = false;
 		
-		 fireworks = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable() {
+		 fireworks = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(Main.instance, new Runnable() 
+		 {
 			   int times = 62;
 			   
 	      	   public void run() {
@@ -237,7 +242,7 @@ public class PorkChopRace implements Listener
 	      			   Bukkit.getScheduler().cancelTask(fireworks);
 	      		   }
 	      	   }
-	      },0, 5);  
+	      },0, 2);  
 	}
 	
 	public static void doGameEnd()
