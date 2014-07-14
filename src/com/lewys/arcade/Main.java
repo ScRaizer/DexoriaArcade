@@ -15,11 +15,8 @@ import com.sk89q.minecraft.util.commands.CommandsManager;
 import com.sk89q.minecraft.util.commands.MissingNestedCommandException;
 import com.sk89q.minecraft.util.commands.WrappedCommandException;
 
-
+@SuppressWarnings("unused")
 public class Main extends JavaPlugin implements Listener
-
-// Steven is super muscular
-
 {
 	public static Main instance;
 	private CommandsManager<CommandSender> commands;
@@ -38,7 +35,6 @@ public class Main extends JavaPlugin implements Listener
 	}
 	
 	// sk89q's command framework
-		@SuppressWarnings("unused")
 		private void setupCommands() {
 			this.commands = new CommandsManager<CommandSender>() {
 				@Override
