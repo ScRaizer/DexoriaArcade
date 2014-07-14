@@ -1,7 +1,5 @@
 package com.lewys.arcade;
 
-import games.PorkChopRace;
-
 import java.util.HashMap;
 
 import me.confuser.barapi.BarAPI;
@@ -86,7 +84,7 @@ public class Lobby implements Listener
 				
 				if(next_game == 1)
 				{
-					PorkChopRace.doPorkChopRace();
+					// PorkChopRace.doPorkChopRace();
 				}
 				
 				Bukkit.getScheduler().cancelTask(Task1);
