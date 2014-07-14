@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 public class Kit {
 	
 	private HashMap<ItemStack, Integer> _itemMap = new HashMap<>();
-	private Ability _mainAb;
-	private List<Ability> _passiveAbs;
+	private Perk _mainAb;
+	private List<Perk> _passiveAbs;
 	
 }

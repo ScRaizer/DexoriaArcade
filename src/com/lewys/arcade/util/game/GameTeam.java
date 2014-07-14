@@ -1,5 +1,5 @@
 package com.lewys.arcade.util.game;
 
-public class Team {
+public class GameTeam {
 
 }

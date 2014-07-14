@@ -12,12 +12,12 @@ public class Game {
 	private long _timer;
 	private Location _lobbyLoc;
 	private GameType _type;
-	private List<Team> _teams;
+	private List<GameTeam> _teams;
 	private List<Kit> _kits;
 	private boolean _beta;
 	
 	// Constructor
-	public Game(String name, int min, int max, Location lob, GameType type, List<Team> teams, List<Kit> kits, long t, boolean b){
+	public Game(String name, int min, int max, Location lob, GameType type, List<GameTeam> teams, List<Kit> kits, long t, boolean b){
 		this._name = name;
 		this._minPlayers = min;
 		this._maxPlayers = max;
@@ -45,7 +45,7 @@ public class Game {
 	public GameType getType(){
 		return this._type;
 	}
-	public List<Team> getTeams(){
+	public List<GameTeam> getTeams(){
 		return this._teams;
 	}
 	public List<Kit> getKits(){
@@ -74,7 +74,7 @@ public class Game {
 	public void setType(GameType type){
 		this._type = type;
 	}
-	public void setTeams(List<Team> t){
+	public void setTeams(List<GameTeam> t){
 		this._teams = t;
 	}
 	public void setKits(List<Kit> k){

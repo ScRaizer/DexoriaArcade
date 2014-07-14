@@ -1,8 +1,5 @@
 package com.lewys.arcade;
 
-import games.PorkChopRace;
-
-
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -33,7 +30,7 @@ public class Main extends JavaPlugin implements Listener
 		GameState.setState(GameState.IN_LOBBY);
 		Lobby.doLobby(1, "PorkChopRace");
 		
-		reg(new PorkChopRace(), new Lobby());
+		// reg(new PorkChopRace(), new Lobby());
 	}
 	public void onDisable()
 	{
