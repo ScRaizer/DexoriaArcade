@@ -3,6 +3,7 @@ package com.lewys.arcade.game;
 import java.util.Arrays;
 
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class Kit {
@@ -40,6 +41,9 @@ public class Kit {
 	}
 	public String getName(){
 		return this._name;
+	}
+	public boolean hasKit(Player p){
+		return true;
 	}
 	
 	public void setKitAvailability(KitAvailability k){
