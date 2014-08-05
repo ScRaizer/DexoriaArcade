@@ -15,7 +15,6 @@ import com.sk89q.minecraft.util.commands.CommandsManager;
 import com.sk89q.minecraft.util.commands.MissingNestedCommandException;
 import com.sk89q.minecraft.util.commands.WrappedCommandException;
 
-@SuppressWarnings("unused")
 public class Main extends JavaPlugin implements Listener
 {
 	public static Main instance;

@@ -8,7 +8,6 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import com.lewys.arcade.Main;
 
-@SuppressWarnings("unused")
 public class UtilPlayer implements Listener {
 	private static Plugin _plugin = Main.instance;
 	private static BukkitScheduler _scheduler = _plugin.getServer()
